@@ -21,6 +21,24 @@ class WpDataMigrationWebhook {
             'permission_callback' => '__return_true',
         ]);
 
+        register_rest_route('wp-data-migration/v1', '/entry', [
+            'methods'  => 'GET, POST',
+            'callback' => function(WP_REST_Request $request) {
+                $helper = new WpDataMigrationHelper();
+                return $helper->handleEntry($request);
+            },
+            'permission_callback' => '__return_true',
+        ]);
+
+        register_rest_route('wp-data-migration/v1', '/file', [
+            'methods'  => 'GET, POST',
+            'callback' => function(WP_REST_Request $request) {
+                $helper = new WpDataMigrationHelper();
+                return $helper->handleFileDownload($request);
+            },
+            'permission_callback' => '__return_true',
+        ]);
+
     }
 
 }
